@@ -57,3 +57,24 @@ void CreateLocalPaths( const std::string& sLocalRoot, const std::string& sRelati
 		}
 	}
 }
+
+bool DownloadFile( CFTPClient* pFTPClient, const std::string& sLocalRoot, const std::string& sRelativePath )
+{
+	CreateLocalPaths( sLocalRoot, sRelativePath );
+	return pFTPClient->DownloadFile( sLocalRoot + "\\" + sRelativePath, sRelativePath );
+}
+
+bool CloneCStrike( CFTPClient* pFTPClient, const std::string& sFolderName )
+{
+	// Find cstrike folder
+
+	std::string sRootPath;
+	if ( !FindCStrikeRoot( pFTPClient, &sRootPath ) )
+		return false;
+
+	// cstrike is present
+	if ( !DownloadFile( pFTPClient, sFolderName, sRootPath + "/cfg/server.cfg" ) )
+		return false;
+
+	return true;
+}
