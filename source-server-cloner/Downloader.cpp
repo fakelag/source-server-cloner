@@ -61,12 +61,16 @@ void CreateLocalPaths( const std::string& sLocalRoot, const std::string& sRelati
 bool DownloadFile( CFTPClient* pFTPClient, const std::string& sLocalRoot, const std::string& sRelativePath )
 {
 	CreateLocalPaths( sLocalRoot, sRelativePath );
+
+	std::cout << "[FTP] Downloading File: " + sRelativePath << std::endl;
 	return pFTPClient->DownloadFile( sLocalRoot + "\\" + sRelativePath, sRelativePath );
 }
 
 bool DownloadDirectory( CFTPClient* pFTPClient, const std::string& sLocalRoot, const std::string& sRelativePath )
 {
 	CreateLocalPaths( sLocalRoot, sRelativePath + "/*" );
+
+	std::cout << "[FTP] Downloading Directory: " + sRelativePath << std::endl;
 	return pFTPClient->DownloadWildcard( sLocalRoot + "\\" + sRelativePath, sRelativePath + "/*" );
 }
 
