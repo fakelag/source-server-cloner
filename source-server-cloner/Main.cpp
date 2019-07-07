@@ -90,5 +90,7 @@ int main()
 			break;
 	}
 
+	std::cout << "Successfully downloaded all files." << std::endl;
+	std::getchar();
 	return 0;
 }
