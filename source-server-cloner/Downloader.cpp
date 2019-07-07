@@ -2,7 +2,7 @@
 #include "FTPClient.h"
 #include "Downloader.h"
 
-bool FindCStrikeRoot( CFTPClient* pFTPClient, std::string* psRootPath )
+bool FindGameRoot( CFTPClient* pFTPClient, const std::string& sGameFolder, std::string* psRootPath )
 {
 	std::string sDirList;
 	if ( !pFTPClient->List( "/", sDirList, true ) )
@@ -15,9 +15,9 @@ bool FindCStrikeRoot( CFTPClient* pFTPClient, std::string* psRootPath )
 	std::string sLine;
 	while ( std::getline( directoryStream, sLine, '\r' ) )
 	{
-		if ( sLine == "\ncstrike" )
+		if ( sLine == "\n" + sGameFolder )
 		{
-			*psRootPath = "cstrike";
+			*psRootPath = sGameFolder;
 			bFound = true;
 			break;
 		}
@@ -74,13 +74,16 @@ bool DownloadDirectory( CFTPClient* pFTPClient, const std::string& sLocalRoot, c
 	return pFTPClient->DownloadWildcard( sLocalRoot + "\\" + sRelativePath, sRelativePath + "/*" );
 }
 
-bool CloneCStrike( CFTPClient* pFTPClient, const std::string& sFolderName )
+bool CloneGameFolder( CFTPClient* pFTPClient, const std::string& sGameFolder, const std::string& sFolderName )
 {
 	// Find cstrike folder
 
 	std::string sRootPath;
-	if ( !FindCStrikeRoot( pFTPClient, &sRootPath ) )
+	if ( !FindGameRoot( pFTPClient, sGameFolder, &sRootPath ) )
+	{
+		std::cout << "Error: game root folder \"" + sGameFolder + "\" not found." << std::endl;
 		return false;
+	}
 
 	// cstrike is present
 

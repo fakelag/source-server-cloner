@@ -1,4 +1,4 @@
 #pragma once
 class CFTPClient;
 
-bool CloneCStrike( CFTPClient* pFTPClient, const std::string& sFolderName );
+bool CloneGameFolder( CFTPClient* pFTPClient, const std::string& sGameFolder, const std::string& sFolderName );

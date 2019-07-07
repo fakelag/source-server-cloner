@@ -4,7 +4,8 @@
 #include "FTPClient.h"
 #include "Downloader.h"
 
-bool InputConfig( std::string* psHost, std::string* psPort, std::string* psUsername, std::string* psPassword, CFTPClient::FTP_PROTOCOL* pProtocol )
+bool InputConfig( std::string* psHost, std::string* psPort, std::string* psUsername,
+	std::string* psPassword, CFTPClient::FTP_PROTOCOL* pProtocol )
 {
 	std::string sCorrect;
 
@@ -81,13 +82,18 @@ int main()
 		return 0;
 	}
 
-	while ( !CloneCStrike( pFTPClient, sHost ) )
+	std::string sGameFolder;
+	std::cout << "Select game folder (cstrike, hl2, hl2mp, ...etc): "; std::cin >> sGameFolder;
+
+	while ( !CloneGameFolder( pFTPClient, sGameFolder, sHost ) )
 	{
 		std::string sTryAgain;
 		std::cout << "Cloning failed - try again? (y/n): "; std::cin >> sTryAgain;
 
 		if ( sTryAgain != "y" )
 			break;
+
+		std::cout << "Select game folder: "; std::cin >> sGameFolder;
 	}
 
 	std::cout << "Successfully downloaded all files." << std::endl;
