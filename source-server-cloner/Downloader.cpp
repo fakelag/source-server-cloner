@@ -84,6 +84,12 @@ bool CloneCStrike( CFTPClient* pFTPClient, const std::string& sFolderName )
 
 	// cstrike is present
 
+	if ( !DownloadFile( pFTPClient, sFolderName, sRootPath + "/motd.txt" ) )
+		return false;
+
+	if ( !DownloadFile( pFTPClient, sFolderName, sRootPath + "/cfg/mapcycle.txt" ) )
+		return false;
+
 	if ( !DownloadFile( pFTPClient, sFolderName, sRootPath + "/cfg/server.cfg" ) )
 		return false;
 
@@ -91,6 +97,18 @@ bool CloneCStrike( CFTPClient* pFTPClient, const std::string& sFolderName )
 		return false;
 
 	if ( !DownloadDirectory( pFTPClient, sFolderName, sRootPath + "/cfg/sourcemod" ) )
+		return false;
+
+	if ( !DownloadDirectory( pFTPClient, sFolderName, sRootPath + "/maps" ) )
+		return false;
+
+	if ( !DownloadDirectory( pFTPClient, sFolderName, sRootPath + "/custom" ) )
+		return false;
+
+	if ( !DownloadDirectory( pFTPClient, sFolderName, sRootPath + "/sound" ) )
+		return false;
+
+	if ( !DownloadDirectory( pFTPClient, sFolderName, sRootPath + "/addons" ) )
 		return false;
 
 	return true;
