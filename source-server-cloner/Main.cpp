@@ -47,7 +47,7 @@ bool InputConfig( std::string* psHost, std::string* psPort, std::string* psUsern
 			}
 		};
 
-		std::cout << "Is this information correct? (y/n/q)"; std::cin >> sCorrect;
+		std::cout << "Is this information correct? (y/n/q): "; std::cin >> sCorrect;
 
 		if ( sCorrect == "q" )
 			return false;
@@ -60,7 +60,7 @@ bool InputConfig( std::string* psHost, std::string* psPort, std::string* psUsern
 int main()
 {
 	CFTPClient* pFTPClient = new CFTPClient( []( const std::string& log ) -> void {
-		std::cout << "[FTP Client] " << log << std::endl;
+		std::cout << log << std::endl;
 	} );
 	
 	std::string sHost;
@@ -81,11 +81,13 @@ int main()
 		return 0;
 	}
 
-	if ( !pFTPClient->DownloadFile( "./server.cfg", "/cstrike/cfg/server.cfg" ) )
+	while ( !CloneCStrike( pFTPClient, sHost ) )
 	{
-		std::cout << "[SSC] Download failed." << std::endl;
-		std::getchar();
-		return 0;
+		std::string sTryAgain;
+		std::cout << "Cloning failed - try again? (y/n): "; std::cin >> sTryAgain;
+
+		if ( sTryAgain != "y" )
+			break;
 	}
 
 	return 0;
