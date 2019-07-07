@@ -64,6 +64,12 @@ bool DownloadFile( CFTPClient* pFTPClient, const std::string& sLocalRoot, const 
 	return pFTPClient->DownloadFile( sLocalRoot + "\\" + sRelativePath, sRelativePath );
 }
 
+bool DownloadDirectory( CFTPClient* pFTPClient, const std::string& sLocalRoot, const std::string& sRelativePath )
+{
+	CreateLocalPaths( sLocalRoot, sRelativePath + "/*" );
+	return pFTPClient->DownloadWildcard( sLocalRoot + "\\" + sRelativePath, sRelativePath + "/*" );
+}
+
 bool CloneCStrike( CFTPClient* pFTPClient, const std::string& sFolderName )
 {
 	// Find cstrike folder
@@ -73,7 +79,14 @@ bool CloneCStrike( CFTPClient* pFTPClient, const std::string& sFolderName )
 		return false;
 
 	// cstrike is present
+
 	if ( !DownloadFile( pFTPClient, sFolderName, sRootPath + "/cfg/server.cfg" ) )
+		return false;
+
+	if ( !DownloadFile( pFTPClient, sFolderName, sRootPath + "/cfg/banned_user.cfg" ) )
+		return false;
+
+	if ( !DownloadDirectory( pFTPClient, sFolderName, sRootPath + "/cfg/sourcemod" ) )
 		return false;
 
 	return true;
