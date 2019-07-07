@@ -30,10 +30,16 @@
     <ClCompile Include="..\dependencies\FTP\FTPClient.cpp">
       <Filter>Dependencies\FTP</Filter>
     </ClCompile>
+    <ClCompile Include="Downloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\dependencies\FTP\FTPClient.h">
       <Filter>Dependencies\FTP</Filter>
+    </ClInclude>
+    <ClInclude Include="Downloader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

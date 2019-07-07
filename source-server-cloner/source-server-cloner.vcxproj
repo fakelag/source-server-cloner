@@ -121,10 +121,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\dependencies\FTP\FTPClient.cpp" />
+    <ClCompile Include="Downloader.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\dependencies\FTP\FTPClient.h" />
+    <ClInclude Include="Downloader.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\dependencies\curl\build\Win32\VC15\LIB Release\libcurl.lib" />
