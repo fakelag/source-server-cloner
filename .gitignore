@@ -1,0 +1,10 @@
+/.vs/*
+/Debug/*
+/dependencies/*
+
+*.obj
+*.lastbuildstate
+*.tlog
+*.pdb
+*.idb
+*.log
